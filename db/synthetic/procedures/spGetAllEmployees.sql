@@ -5,5 +5,6 @@ AS
 BEGIN
     SELECT EmployeeID, Name, Gender, Department, City
     FROM dbo.tblEmployee
+    WHERE Name <> ''
     ORDER BY EmployeeID;
 END
