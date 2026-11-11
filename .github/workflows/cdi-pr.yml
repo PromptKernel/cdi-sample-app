@@ -47,7 +47,7 @@ jobs:
             cdi-baseline-v1-
 
       - name: Analyse the pull request
-        uses: promptkernel/cdi-poc/.github/actions/cdi@39e9383adb6c8c712f9af53142b1429cd2eb76be
+        uses: promptkernel/cdi-poc/.github/actions/cdi@e76ceb2bd8f9d1c807b291bd89944ecd4fc829d7
         with:
           mode: pr
           baseline-path: ${{ runner.temp }}/cdi-baseline.json
