@@ -8,3 +8,4 @@ BEGIN
     WHERE Name <> ''
     ORDER BY EmployeeID;
 END
+-- demo: second revision of this synthetic change
