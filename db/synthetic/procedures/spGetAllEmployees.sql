@@ -9,3 +9,4 @@ BEGIN
     ORDER BY EmployeeID;
 END
 -- demo: second revision of this synthetic change
+-- demo: third revision, to re-run on the updated tool
