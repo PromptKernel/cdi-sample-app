@@ -14,3 +14,5 @@ nothing about accuracy on real code.
 
 Upstream: https://github.com/AnkitSharma-007/CRUD.ASPCore.Angular.WebAPI.ADO @ `938cb17` (MIT, see `LICENSE` and `NOTICE`).
 Tool configuration (`.cdi/config.yml`) is added in a later step.
+
+Demo note: this line changes documentation only; no scanned file is touched.
