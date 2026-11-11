@@ -21,7 +21,7 @@ namespace ASPCoreWithAngular.Controllers
         }
 
         [HttpGet]
-        [Route("Index")]
+        [Route("List")]
         public IEnumerable<Employee> Index()
         {
             return objemployee.GetAllEmployees();
