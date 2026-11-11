@@ -27,7 +27,7 @@ jobs:
 
       - name: Build the baseline
         id: cdi
-        uses: promptkernel/cdi-poc/.github/actions/cdi@64a288cfea6ac4f2fd659f21ef2776ae8db69034
+        uses: promptkernel/cdi-poc/.github/actions/cdi@6fdebb5d231873315a1898b0ac64489f645559f0
         with:
           mode: baseline
           baseline-path: ${{ runner.temp }}/cdi-baseline.json
