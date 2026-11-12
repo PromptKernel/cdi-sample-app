@@ -11,7 +11,6 @@ import { CounterComponent } from './counter/counter.component';
 import { FetchDataComponent } from './fetch-data/fetch-data.component';
 import { FetchEmployeeComponent } from './fetch-employee/fetch-employee.component';
 import { AddEmployeeComponent } from './add-employee/add-employee.component';
-import { DepartmentReportComponent } from '../synthetic/department-report/department-report.component'; // SYNTHETIC
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import { DepartmentReportComponent } from '../synthetic/department-report/depart
     CounterComponent,
     FetchDataComponent,
     FetchEmployeeComponent,
-    AddEmployeeComponent,
-    DepartmentReportComponent // SYNTHETIC
+    AddEmployeeComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -36,7 +34,6 @@ import { DepartmentReportComponent } from '../synthetic/department-report/depart
       { path: 'fetch-employee', component: FetchEmployeeComponent },
       { path: 'register-employee', component: AddEmployeeComponent },
       { path: 'employee/edit/:id', component: AddEmployeeComponent },
-      { path: 'department-report', component: DepartmentReportComponent }, // SYNTHETIC
     ])
   ],
   providers: [],
