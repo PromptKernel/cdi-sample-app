@@ -1,4 +1,4 @@
-cdi-sample-app: sample application for the cross-layer dependency graph tool
+cdi-sample-app
 
 This repository contains code derived from an MIT-licensed project:
 
@@ -8,6 +8,5 @@ This repository contains code derived from an MIT-licensed project:
   Licensed under the MIT License (see LICENSE, web/LICENSE, api/LICENSE, db/LICENSE)
 
 Imported at upstream commit 938cb17 into web (ClientApp), api (ASP.NET project) and db (licence only).
-The API project was retargeted to .NET 10 after import. Files and folders marked "synthetic"
-(db/synthetic, api/Synthetic, web/src/synthetic, api/tests) were written for the proof of concept and are not
-part of the upstream project. The upstream sample ships no SQL files, so everything under db/ is synthetic.
+The API project was retargeted to .NET 10 after import. The upstream sample ships no SQL files,
+so everything under db/ was written for this repository.

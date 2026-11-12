@@ -1,4 +1,3 @@
-# db (synthetic)
-SQL objects for the cross-layer dependency graph PoC. The upstream sample ships NO .sql files;
-everything under `synthetic/` is SYNTHETIC, written for this PoC (reconstructed from the stored-procedure names and
-columns used by the sample's C# code, plus clearly marked additions).
+# db
+SQL scripts for the application: tables, stored procedures and a view (under `synthetic/`).
+The upstream sample ships no .sql files; these were reconstructed from the stored-procedure names and columns used by the C# code.

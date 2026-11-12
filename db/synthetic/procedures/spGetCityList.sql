@@ -5,4 +5,3 @@ AS
 BEGIN
     SELECT CityID, CityName FROM dbo.tblCities;
 END
--- demo: a later change on main to a scanned file
