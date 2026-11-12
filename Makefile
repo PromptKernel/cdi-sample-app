@@ -1,22 +1,36 @@
-# The sample application (Angular web + ASP.NET Core api + SQL Server db). Run `make help`.
-API_URL        ?= http://localhost:5000
-# api/appsettings.json defaults to a Windows SQL Express instance; point this at a SQL Server you run yourself.
-DB_CONNECTION  ?=
+# Run the sample application: `make db`, `make api`, `make ui` (each installs what it needs). `make help` lists everything.
+API_PORT ?= 5050
+API_ENV  ?= Production
+UI_PORT  ?= 4200
+DB_PORT  ?= 1433
+DB_NAME  ?= myTestDB
+export DB_PORT DB_NAME
 
-.PHONY: help build-api run-api install-web run-web
+.PHONY: help db db-stop db-reset api ui build-api
 
-help:           ## list the targets
+help:           ## list the commands
 	@grep -E '^[a-z-]+:.*## ' $(MAKEFILE_LIST) | sed -E 's/^([a-z-]+):.*## (.*)/  make \1\t\2/'
 
-build-api:      ## compile the ASP.NET Core api
+db:             ## SQL Server in Docker: create it, build the database from db/, load sample rows (safe to repeat)
+	@bash db/up.sh
+
+db-stop:        ## stop the SQL Server container (data is kept)
+	docker stop cdi-sample-sql
+
+db-reset:       ## DELETE the SQL Server container, its data and the saved password; `make db` then starts fresh
+	-docker rm -f cdi-sample-sql
+	-docker volume rm cdi_sample_sql_data
+	rm -f .local/sa-password
+
+api: db         ## the ASP.NET Core api on http://localhost:5050 (starts the database first; restores packages automatically)
+	@command -v dotnet >/dev/null || { echo "ERROR: .NET SDK not found. Install .NET 10: https://dotnet.microsoft.com/download"; exit 1; }
+	cd api && ASPNETCORE_ENVIRONMENT=$(API_ENV) \
+	  ConnectionStrings__DefaultConnection="Server=localhost,$(DB_PORT);Database=$(DB_NAME);User Id=sa;Password=$$(cat ../.local/sa-password);TrustServerCertificate=true" \
+	  dotnet run --no-launch-profile --urls http://localhost:$(API_PORT)
+
+ui:             ## the Angular page on http://localhost:4200 (npm install on first run; calls the api via a proxy; start `make api` too)
+	@command -v node >/dev/null && command -v npm >/dev/null || { echo "ERROR: Node.js not found. Install Node: https://nodejs.org/"; exit 1; }
+	cd web && { [ -d node_modules ] || npm ci --no-audit --no-fund; } && NODE_OPTIONS=--openssl-legacy-provider npx ng serve --proxy-config proxy.conf.json --port $(UI_PORT)
+
+build-api:      ## just compile the api
 	cd api && dotnet build -nologo -v q
-
-run-api:        ## run the api on API_URL; needs a SQL Server: make run-api DB_CONNECTION="Server=...;Database=...;User Id=...;Password=...;TrustServerCertificate=true"
-	@test -n "$(DB_CONNECTION)" || { echo "set DB_CONNECTION to a SQL Server connection string"; exit 2; }
-	cd api && ASPNETCORE_ENVIRONMENT=Development ConnectionStrings__DefaultConnection="$(DB_CONNECTION)" dotnet run --urls $(API_URL)
-
-install-web:    ## npm ci for the Angular client (Angular 8: may need an older Node than the newest)
-	cd web && npm ci
-
-run-web:        ## ng serve the Angular client
-	cd web && npm start
